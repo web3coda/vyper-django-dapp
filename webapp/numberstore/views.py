@@ -8,7 +8,8 @@ import codecs
 web3 = Web3(Web3.HTTPProvider('http://localhost:8545',request_kwargs={'timeout':100}))
 
 # Address of the smart contract
-contract_address = "0x627511636204bcbA27C9E3Ee819b983E1Af969D2"
+contract_address = "0x8A73F2E91968D0eD571E135d0e0031f18f8EAce7"
+address = "0x5C0b07b93526CD047C193fAc6d7C0F321AA8901F"
 contract_abi = [{"stateMutability": "nonpayable", "type": "function", "name": "setNumber", "inputs": [{"name": "_number", "type": "uint256"}], "outputs": []}, {"stateMutability": "nonpayable", "type": "function", "name": "getNumber", "inputs": [], "outputs": [{"name": "", "type": "uint256"}]}, {"stateMutability": "view", "type": "function", "name": "storedNumber", "inputs": [], "outputs": [{"name": "", "type": "uint256"}]}]
 
 # Instantiate the contract object
@@ -20,11 +21,6 @@ def server(request):
     if request.method == 'POST':
         # Handle form submission
         text_input = request.POST.get('text_input')
-
-        print(text_input)
-
-        address = request.POST.get('current_account')
-        print(address)
 
         # Construct the transaction parameters
         tx_params = {
@@ -59,3 +55,6 @@ def server(request):
 
 def client(request):
     return render(request,'client.html',{'storedNumber':''})
+
+def home(request):
+    return render(request,'home.html')
