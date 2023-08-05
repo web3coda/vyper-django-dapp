@@ -1,0 +1,57 @@
+<html>
+<head>
+    <title>numberStore - Server Side</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script>
+        // Connect to MetaMask on page load
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(window.ethereum);
+                try {
+                    // Request account access if needed
+                    await window.ethereum.enable();
+                    console.log('Connected to MetaMask!');
+
+                    const accounts = await window.web3.eth.getAccounts();
+                    const currentAccount = accounts[0];
+                    const accountElement = document.getElementById('current_account');
+                    accountElement.innerText = currentAccount;
+
+                    var currentAccountInput = document.getElementById('current-account-input');
+                    currentAccountInput.value = currentAccount;
+
+                } catch (error) {
+                    console.log('User denied account access.');
+                }
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        });
+    </script>
+</head>
+
+<body>
+
+<form method="POST">
+
+    <p> Account address: <span id="current_account"></span></p>
+
+    {% csrf_token %}
+
+    <input type="hidden" id="current-account-input" name="current_account" value="{{ current_account }}">
+
+    <p> Stored Number :  {{ storedNumber }} </p>
+
+    <label for="text_input">Set Number:</label>
+    <input type="text" id="text_input" name="text_input" value="{{ text_input }}">
+    <button type="submit">Submit</button>
+
+    {{ txhash }}
+
+</form>
+
+</body>
+</html>

@@ -1,0 +1,76 @@
+<html>
+<head>
+    <title>numberStore - Client Side</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <script>
+
+        const abi = [{"stateMutability": "nonpayable", "type": "function", "name": "setNumber", "inputs": [{"name": "_number", "type": "uint256"}], "outputs": []}, {"stateMutability": "nonpayable", "type": "function", "name": "getNumber", "inputs": [], "outputs": [{"name": "", "type": "uint256"}]}, {"stateMutability": "view", "type": "function", "name": "storedNumber", "inputs": [], "outputs": [{"name": "", "type": "uint256"}]}];
+        const address = '0x627511636204bcbA27C9E3Ee819b983E1Af969D2';
+        
+        // Connect to MetaMask on page load
+        window.addEventListener('load', async () => {
+            // Modern dapp browsers...
+            if (window.ethereum) {
+                window.web3 = new Web3(window.ethereum);
+                try {
+                    // Request account access if needed
+                    await window.ethereum.enable();
+                    console.log('Connected to MetaMask!');
+
+                    const accounts = await window.web3.eth.getAccounts();
+                    const currentAccount = accounts[0];
+                    const accountElement = document.getElementById('current_account');
+                    accountElement.innerText = currentAccount;
+
+                    console.log(currentAccount);
+
+                    
+                    const contract = new window.web3.eth.Contract(abi, address);
+
+                    const storedNumber = await contract.methods.getNumber().call();
+
+                    const storedNumberElement = document.getElementById('stored_number');
+                    storedNumberElement.innerText = storedNumber;
+
+                } catch (error) {
+                    console.log('User denied account access.');
+                }
+            }
+            // Non-dapp browsers...
+            else {
+                console.log('Non-Ethereum browser detected. You should consider trying MetaMask!');
+            }
+        });
+
+        async function storeNumber() {
+
+            const numberToSetElement = document.getElementById('text_input');
+            console.log(numberToSetElement.value);
+
+            const contract = new window.web3.eth.Contract(abi, address);
+
+            const accounts = await window.web3.eth.getAccounts();
+            const tx_hash = await contract.methods.setNumber(numberToSetElement.value).send({
+                from: accounts[0],
+                gas: 200000,
+                });
+            console.log(tx_hash);
+
+            location.reload()
+        }
+
+    </script>
+</head>
+
+<body>
+
+    <p> Account address: <span id="current_account"></span></p>
+
+    <p> Stored number: <span id="stored_number"></span></p>
+
+    <label for="text_input">Set Number:</label>
+    <input type="text" id="text_input" name="text_input" value="{{ text_input }}">
+    <button onclick="storeNumber()">Store</button>
+
+</body>
+</html>

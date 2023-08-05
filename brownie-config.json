@@ -1,0 +1,21 @@
+{
+    "networks": {
+      "development": {
+        "host": "http://127.0.0.1:8545",
+        "chainid": 1337,
+        "accounts": [
+          "0x3b4030809daeeb37424daa26e4496297156616d3ada59dc4c37bbc006510ccd6",
+          "0x28e1af89ec7aebd8109812da737a3342fab162476ce56205d1ece6187f8b6c63",
+          "0x7576f7dac5e5bb301a3ef943e811d623108a21ffc2cc199b0837de1e7f780a97",
+          "0x8f92bb8d31fca0bf2a8b1882aa6de1cb9be2b02bb002f34e3360c970c9cbfe3b",
+          "0x8aa2663c670e3c71c8c2f407fb47733fecc5dbe368b5bf19e30d146fe40c897e",
+          "0x7fd37678a00e50a47e2b7e666560264649d21f618c9ee8cd7de54e6ca6378a2e",
+          "0x2c47051869bb2e6fb09598e2c676334adc801accbdddaeec10c2dc02a72ad6f4",
+          "0x613971e78b696d9348be2d5aae01e4371b246c632dfe7c8a0c2916adfc243c95",
+          "0xb3871c1325446e05a22ba557d69aaa8f4874212693609b141aa66692fd18fe3b",
+          "0x76ccabcb5d08f2e81a61d91bad338bd2b956b33f1433533ad524d89824b878c1"
+        ]
+      }
+    }
+  }
+  
